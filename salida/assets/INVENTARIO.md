@@ -1,0 +1,18 @@
+# Inventario de imágenes
+
+| Archivo | Resolución | Qué muestra | Origen | Diapositiva |
+|---|---|---|---|---|
+| `stella/stella_songahm_2400.png` (+ `.svg`) | 2400 px, transparente | Estrella Songahm, emblema oficial ATA, a color | atamartialarts.com (497 px), vectorizada | 7 |
+| `stella/stella_songahm_fondo_scuro_2400.png` (+ `.svg`) | 2400 px | La misma con contorno dorado para fondos oscuros | ídem | 4, 9, 23 |
+| `stella/stella_songahm_filigrana_2400.png` / `stella_songahm_oro.svg` | 2400 px | Versión monocroma dorada, 16 % de opacidad (marca de agua) | ídem | 1, 6, 14, 19 |
+| `stella/originale_atamartialarts_497px.png` | 497 × 489 | Archivo original descargado (referencia) | atamartialarts.com | — |
+| `cinturones_hd/<color>_raccomandato.png` (9) | 1200 × 290 | Cinturones de color en tinta lisa | Redibujados desde `cinturones/colores/*_liso.png` del repo | 9, 10 |
+| `cinturones_hd/<color>_deciso.png` (9) | 1200 × 290 | Cinturones con franja negra | Redibujados desde `*_franja_negra.png` | 10 |
+| `cinturones_hd/rossanera_1dan_raccomandato.png` | 1200 × 290 | Cinturón mitad negro, mitad rojo | Desde `10_negro_rojo_liso.png` | 12 |
+| `cinturones_hd/nera.png`, `nera_1dan/2dan/3dan.png` | 1200 × 290 | Cinturón negro y negros con número romano | Desde `cinturones/negros_dan/` | 3, 9, 12 |
+| `cinturones_hd/tigers/animale_*.png` (9) | ≈790 × 220 | Cinturón Tigers + parche del animal | Ampliado ×6 (Lanczos + nitidez) desde `cinturones/tigers/animal_y_linea_lisa/` | 11 |
+| `cinturones_hd/tigers/0*.png` (9) | ≈1155 × 180 | Cinturón Tigers completo | Ampliado ×5 desde `cinturones/tigers/completos/` | (de reserva) |
+| Collares de dobok (4) y galones de juez (3) | 1200 / 1000 px | Ilustraciones vectoriales (`src/art.js`) | Propias | 4, 5 |
+| Iconos | 256 px | Font Awesome vía react-icons | CC BY 4.0 | varias |
+
+Faltantes (recuadro dorado discontinuo en el deck): foto de portada, foto con cinturón negro/medalla, logo MIRAE, 2 fachadas, foto de Tigers, foto en competencia, video de clase y 4 fotos de galería.
