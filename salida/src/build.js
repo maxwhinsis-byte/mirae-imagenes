@@ -306,15 +306,14 @@ const TIGER_FILES = ["01_blanco", "02_naranja", "03_amarillo", "04_camuflado", "
     T(s, k.toUpperCase(), { x: x + 0.08, y: 2.85, w: tw - 0.16, h: 0.3, fontSize: 11, bold: true, color: MD, align: "center", charSpacing: 1 });
     T(s, an, { x: x + 0.08, y: 3.15, w: tw - 0.16, h: 0.4, fontFace: HEAD, fontSize: 14, bold: true, color: GOLD2, align: "center" });
   });
-  await slot(s, "tigers", "[FOTO: classe dei Tigers]", M, 4.0, 4.1, 2.6);
   const tcards = [[fa.FaPaw, "Cosa imparano", "Autodisciplina, rispetto, ascolto e coordinazione, con giochi e il giuramento dei Tigers."], [fa.FaLevelUpAlt, "Il passaggio", "Quando sono pronti passano alla classe dei ragazzi mantenendo la loro cintura."]];
   for (let i = 0; i < 2; i++) {
-    const [Ic, t, d] = tcards[i], x = 5.05 + i * 3.89, w2 = 3.69;
-    card(s, x, 4.0, w2, 2.6, CARD2);
+    const w2 = (CW - 0.3) / 2, [Ic, t, d] = tcards[i], x = M + i * (w2 + 0.3);
+    card(s, x, 4.0, w2, 1.95, CARD2);
     s.addShape(pres.shapes.OVAL, { x: x + 0.3, y: 4.3, w: 0.6, h: 0.6, fill: { color: GOLD }, line: { type: "none" } });
     s.addImage({ data: await icon(Ic, NIGHT), x: x + 0.45, y: 4.45, w: 0.3, h: 0.3, altText: "" });
     T(s, t.toUpperCase(), { x: x + 1.1, y: 4.3, w: w2 - 1.4, h: 0.6, fontFace: HEAD, fontSize: 17, bold: true, color: WHITE, valign: "middle" });
-    T(s, d, { x: x + 0.3, y: 5.1, w: w2 - 0.6, h: 1.3, fontSize: 15, color: MD });
+    T(s, d, { x: x + 0.3, y: 5.1, w: w2 - 0.6, h: 1.1, fontSize: 16, color: MD });
   }
   foot(s, "Fonte: ATA Martial Arts, programma “ATA Tigers” · cinture: ritagli di Luciano Moreno", true);
   s.addNotes(N.tigers);
@@ -376,17 +375,15 @@ const TIGER_FILES = ["01_blanco", "02_naranja", "03_amarillo", "04_camuflado", "
   await slot(s, "logo_mirae", "[LOGO MIRAE]", M, 1.95, 1.3, 1.3, true, "contain", "Logo di MIRAE Artes Marciales");
   T(s, [{ text: "Accademia di arti marziali ATA con " }, { text: "due sedi", options: { bold: true } }, { text: " a Ciudad de la Costa, Canelones." }], { x: M + 1.55, y: 1.95, w: 5.6, h: 0.8, fontSize: 18, color: WHITE });
   T(s, "Mi alleno qui dal 2019. Oggi ci lavoro come istruttore retribuito, con classi di bambini, adolescenti e adulti.", { x: M + 1.55, y: 2.75, w: 5.6, h: 0.6, fontSize: 15, color: MD });
-  const fw = (7.2 - 0.3) / 2;
-  const sedi = [["sede_shangrila", "shangrila", "SHANGRILÁ", "Av. Calcagno, manzana 12, solar 6"], ["sede_barra_de_carrasco", "bdc", "BARRA DE CARRASCO", "Tacuarí 1084 esq. Rivera"]];
+  const sedi = [["MIRAE · SHANGRILÁ", "Av. Calcagno, manzana 12, solar 6"], ["MIRAE · BARRA DE CARRASCO", "Tacuarí 1084 esq. Rivera"]];
+  const pinIc = await icon(fa.FaMapMarkerAlt, NIGHT);
   for (let i = 0; i < 2; i++) {
-    const [k, mk, c, a] = sedi[i], x = M + i * (fw + 0.3);
-    if (findFoto(k)) await slot(s, k, "", x, 3.65, fw, 2.2, true, "cover", "Sede di " + c);
-    else { // nessuna foto della facciata: primo piano della mappa con la posizione esatta
-      fit(s, await file(`mappa/primo_piano_${mk}.jpg`), x, 3.65, fw, 2.2, `Mappa: posizione della sede MIRAE di ${c}, ${a}`);
-      s.addShape(pres.shapes.RECTANGLE, { x, y: 3.65, w: fw, h: 2.2, fill: { type: "none" }, line: { color: "3D6A5C", width: 1 } });
-    }
-    T(s, c, { x, y: 5.95, w: fw, h: 0.32, fontFace: HEAD, fontSize: 16, bold: true, color: GOLD2 });
-    T(s, a, { x, y: 6.27, w: fw, h: 0.3, fontSize: 13, color: MD });
+    const [c, a] = sedi[i], y = 3.75 + i * 1.4;
+    card(s, M, y, 7.2, 1.15, CARD);
+    s.addShape(pres.shapes.OVAL, { x: M + 0.3, y: y + 0.28, w: 0.6, h: 0.6, fill: { color: GOLD }, line: { type: "none" } });
+    s.addImage({ data: pinIc, x: M + 0.45, y: y + 0.43, w: 0.3, h: 0.3, altText: "" });
+    T(s, c, { x: M + 1.15, y: y + 0.17, w: 5.8, h: 0.42, fontFace: HEAD, fontSize: 18, bold: true, color: GOLD2, valign: "middle" });
+    T(s, a + " · Ciudad de la Costa, Canelones", { x: M + 1.15, y: y + 0.6, w: 5.8, h: 0.36, fontSize: 15, color: MD, valign: "middle" });
   }
   // Mappa OpenStreetMap con le due sedi (marcatori disegnati in tools/mappa.py)
   const MP = { x: 8.23, y: 1.95, s: 4.4 }, mj = JSON.parse(fs.readFileSync(path.join(ASSETS, "mappa", "mappa_sedi.json")));
@@ -454,7 +451,7 @@ const TIGER_FILES = ["01_blanco", "02_naranja", "03_amarillo", "04_camuflado", "
   } else ph(s, "[VIDEO: io che conduco una lezione, massimo 20 secondi]\nInserisci › Video", M, 1.95, 6.9, 3.88);
   T(s, "[Didascalia del video: classe, data, cosa si vede]", { x: M, y: 5.95, w: 6.9, h: 0.4, fontSize: 14, color: MD });
   const pxs = 7.85, pw = (W - M - pxs - 0.25) / 2;
-  const gal = [["[FOTO: classe dei Tigers o dei bambini]", "Tigers e bambini"], ["[FOTO: classe di adolescenti o adulti]", "Adolescenti e adulti"], ["[FOTO: io mentre faccio da giudice]", "Da giudice"], ["[FOTO: esame di cintura o torneo]", "Esami e tornei"]];
+  const gal = [["[FOTO: classe di bambini]", "Bambini"], ["[FOTO: classe di adolescenti o adulti]", "Adolescenti e adulti"], ["[FOTO: io mentre faccio da giudice]", "Da giudice"], ["[FOTO: esame di cintura o torneo]", "Esami e tornei"]];
   for (let i = 0; i < 4; i++) {
     const [p, c] = gal[i], x = pxs + (i % 2) * (pw + 0.25), y = 1.95 + Math.floor(i / 2) * 2.2;
     await slot(s, "galleria_" + (i + 1), p, x, y, pw, 1.65);
