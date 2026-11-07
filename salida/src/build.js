@@ -70,6 +70,24 @@ const TIGER_FILES = ["01_blanco", "02_naranja", "03_amarillo", "04_camuflado", "
     s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y, w, h, rectRadius: 0.08, fill: { color: dark ? CARD : "ECE6D3" }, line: { color: GOLD, width: 1.75, dashType: "dash" }, objectName: "Da completare" });
     T(s, label, { x: x + 0.2, y, w: w - 0.4, h, fontSize: 14, italic: true, color: dark ? GOLD2 : "8A6A1E", align: "center", valign: "middle" });
   };
+  // Foto di Lucho: se esiste fotos/<chiave>.(jpg|jpeg|png|webp) nel repo la usa (ritaglio “cover”, mai deformata);
+  // altrimenti lascia il riquadro oro da completare. Elenco delle chiavi in fotos/LEEME.md
+  const FOTOS = path.join(__dirname, "..", "..", "fotos");
+  const findFoto = (key, exts = ["jpg", "jpeg", "png", "webp"]) => {
+    for (const e of exts) for (const n of [key + "." + e, key + "." + e.toUpperCase()]) { const f = path.join(FOTOS, n); if (fs.existsSync(f)) return f; }
+    return null;
+  };
+  const used = [];
+  const slot = async (s, key, label, x, y, w, h, dark = true, mode = "cover", alt = label) => {
+    const f = findFoto(key);
+    if (!f) return ph(s, label, x, y, w, h, dark);
+    const DPI = 220, W2 = Math.round(w * DPI), H2 = Math.round(h * DPI);
+    const buf = mode === "contain"
+      ? await sharp(f).rotate().resize(W2, H2, { fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } }).png().toBuffer()
+      : await sharp(f).rotate().resize(W2, H2, { fit: "cover", position: "attention" }).jpeg({ quality: 85 }).toBuffer();
+    used.push(path.basename(f));
+    s.addImage({ data: (mode === "contain" ? "image/png" : "image/jpeg") + ";base64," + buf.toString("base64"), x, y, w, h, altText: alt.replace(/^\[|\]$/g, "").replace(/^FOTO( GRANDE)?: /, "") });
+  };
   const card = (s, x, y, w, h, fill, line) => s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y, w, h, rectRadius: 0.08, fill: { color: fill }, line: line ? { color: line, width: line === GOLD ? 2.5 : 0.75 } : { type: "none" } });
   const pill = (s, text, x, y, w, fill, color) => {
     s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y, w, h: 0.36, rectRadius: 0.18, fill: { color: fill }, line: { type: "none" } });
@@ -94,7 +112,7 @@ const TIGER_FILES = ["01_blanco", "02_naranja", "03_amarillo", "04_camuflado", "
   T(s, "Dall’allievo all’istruttore: la mia esperienza di lavoro in accademia", { x: M, y: 4.15, w: 5.6, h: 1.0, fontSize: 22, color: MD });
   T(s, "LUCIANO MORENO", { x: M, y: 5.3, w: 6.2, h: 0.42, fontFace: HEAD, fontSize: 20, bold: true, color: WHITE, charSpacing: 2 });
   T(s, "Scuola Italiana di Montevideo · MIRAE Artes Marciales", { x: M, y: 5.72, w: 6.2, h: 0.6, fontSize: 14, color: MD });
-  ph(s, "[FOTO GRANDE: io in dobok mentre insegno, calcio alto o posizione di guardia]", 7.3, 0, 6.033, 7.5);
+  await slot(s, "portada", "[FOTO GRANDE: io in dobok mentre insegno, calcio alto o posizione di guardia]", 7.3, 0, 6.033, 7.5);
   s.addNotes(N.cover);
 
   // ===== 2 INDICE =====
@@ -113,7 +131,7 @@ const TIGER_FILES = ["01_blanco", "02_naranja", "03_amarillo", "04_camuflado", "
   // ===== 3 PROFILO =====
   s = pres.addSlide({ masterName: "LIGHT", sectionTitle: "Apertura" });
   head(s, "01 · Chi sono", "Da allievo a istruttore");
-  ph(s, "[FOTO: io con la cintura nera, con una medaglia o con la Nazionale ATA Uruguay]", M, 1.95, 3.5, 4.7, false);
+  await slot(s, "cintura_nera", "[FOTO: io con la cintura nera, con una medaglia o con la Nazionale ATA Uruguay]", M, 1.95, 3.5, 4.7, false);
   const gx = 4.6, gw = (W - M - gx - 0.3) / 2;
   [["2019", "Inizio ad allenarmi alla MIRAE"], ["5–6", "giorni di allenamento a settimana, 1–2 ore al giorno"], ["2º Dan", "Cintura nera di secondo grado"], ["Liv. 2", "Istruttore certificato · Giudice di livello 1"]].forEach(([n, l], i) => {
     const x = gx + (i % 2) * (gw + 0.3), y = 1.95 + Math.floor(i / 2) * 1.6;
@@ -286,7 +304,7 @@ const TIGER_FILES = ["01_blanco", "02_naranja", "03_amarillo", "04_camuflado", "
     T(s, k.toUpperCase(), { x: x + 0.08, y: 2.85, w: tw - 0.16, h: 0.3, fontSize: 11, bold: true, color: MD, align: "center", charSpacing: 1 });
     T(s, an, { x: x + 0.08, y: 3.15, w: tw - 0.16, h: 0.4, fontFace: HEAD, fontSize: 14, bold: true, color: GOLD2, align: "center" });
   });
-  ph(s, "[FOTO: classe dei Tigers]", M, 4.0, 4.1, 2.6);
+  await slot(s, "tigers", "[FOTO: classe dei Tigers]", M, 4.0, 4.1, 2.6);
   const tcards = [[fa.FaPaw, "Cosa imparano", "Autodisciplina, rispetto, ascolto e coordinazione, con giochi e il giuramento dei Tigers."], [fa.FaLevelUpAlt, "Il passaggio", "Quando sono pronti passano alla classe dei ragazzi mantenendo la loro cintura."]];
   for (let i = 0; i < 2; i++) {
     const [Ic, t, d] = tcards[i], x = 5.05 + i * 3.89, w2 = 3.69;
@@ -342,7 +360,7 @@ const TIGER_FILES = ["01_blanco", "02_naranja", "03_amarillo", "04_camuflado", "
     T(s, t.toUpperCase(), { x: x + 0.3, y: y + 0.2, w: dw4 - 0.6, h: 0.65, fontFace: HEAD, fontSize: 17, bold: true, color: mine ? NIGHT : WHITE });
     T(s, mine ? "La pratico" : d, { x: x + 0.3, y: y + 0.9, w: dw4 - 0.6, h: 0.35, fontSize: 14, bold: !!mine, color: mine ? NIGHT : MD });
   });
-  ph(s, "[FOTO: io in gara · combattimento o forma con armi]", M, 5.2, 5.5, 1.55);
+  await slot(s, "gara", "[FOTO: io in gara · combattimento o forma con armi]", M, 5.2, 5.5, 1.55);
   T(s, "Nei combattimenti si usano casco, paradenti e protezioni per mani, piedi e torace. Ci sono anche gare a squadre: combattimento, sincronia e dimostrazione.", { x: 6.5, y: 5.2, w: W - M - 6.5, h: 1.55, fontSize: 15, color: MD, valign: "middle" });
   foot(s, "Fonte: regolamento ufficiale dei tornei ATA 2023–24", true);
   s.addNotes(N.discipline);
@@ -353,14 +371,29 @@ const TIGER_FILES = ["01_blanco", "02_naranja", "03_amarillo", "04_camuflado", "
   // ===== 15 MIRAE =====
   s = pres.addSlide({ masterName: "DARK", sectionTitle: "La mia esperienza" });
   head(s, "03 · Dove lavoro", "MIRAE Artes Marciales");
-  ph(s, "[LOGO MIRAE]", M, 1.95, 1.6, 1.6);
-  T(s, [{ text: "Accademia di arti marziali con " }, { text: "due sedi", options: { bold: true } }, { text: " nel dipartimento di Canelones: " }, { text: "Shangrilá", options: { color: GOLD2, bold: true } }, { text: " e " }, { text: "Barra de Carrasco", options: { color: GOLD2, bold: true } }, { text: "." }], { x: M, y: 3.8, w: 3.9, h: 1.3, fontSize: 18, color: WHITE });
-  T(s, "Mi alleno qui dal 2019. Oggi ci lavoro come istruttore retribuito, con classi di bambini, adolescenti e adulti.", { x: M, y: 5.2, w: 3.9, h: 1.1, fontSize: 15, color: MD });
-  [["[FOTO: sede di Shangrilá]", "SEDE SHANGRILÁ"], ["[FOTO: sede di Barra de Carrasco]", "SEDE BARRA DE CARRASCO"]].forEach(([p, c], i) => {
-    const x = 4.9 + i * 3.97;
-    ph(s, p, x, 1.95, 3.77, 3.9);
-    T(s, c, { x, y: 6.0, w: 3.77, h: 0.4, fontFace: HEAD, fontSize: 16, bold: true, color: GOLD2 });
-  });
+  await slot(s, "logo_mirae", "[LOGO MIRAE]", M, 1.95, 1.3, 1.3, true, "contain", "Logo di MIRAE Artes Marciales");
+  T(s, [{ text: "Accademia di arti marziali ATA con " }, { text: "due sedi", options: { bold: true } }, { text: " a Ciudad de la Costa, Canelones." }], { x: M + 1.55, y: 1.95, w: 5.6, h: 0.8, fontSize: 18, color: WHITE });
+  T(s, "Mi alleno qui dal 2019. Oggi ci lavoro come istruttore retribuito, con classi di bambini, adolescenti e adulti.", { x: M + 1.55, y: 2.75, w: 5.6, h: 0.6, fontSize: 15, color: MD });
+  const fw = (7.2 - 0.3) / 2;
+  const sedi = [["sede_shangrila", "[FOTO: sede di Shangrilá]", "SHANGRILÁ", "Ciudad de la Costa"], ["sede_barra_de_carrasco", "[FOTO: sede di Barra de Carrasco]", "BARRA DE CARRASCO", "Tacuarí 1084 esq. Rivera"]];
+  for (let i = 0; i < 2; i++) {
+    const [k, p, c, a] = sedi[i], x = M + i * (fw + 0.3);
+    await slot(s, k, p, x, 3.65, fw, 2.2);
+    T(s, c, { x, y: 5.95, w: fw, h: 0.32, fontFace: HEAD, fontSize: 16, bold: true, color: GOLD2 });
+    T(s, a, { x, y: 6.27, w: fw, h: 0.3, fontSize: 13, color: MD });
+  }
+  // Mappa OpenStreetMap con le due sedi (marcatori disegnati in tools/mappa.py)
+  const MP = { x: 8.23, y: 1.95, s: 4.4 }, mj = JSON.parse(fs.readFileSync(path.join(ASSETS, "mappa", "mappa_sedi.json")));
+  s.addImage({ data: (await file("mappa/mappa_sedi.png")).data, x: MP.x, y: MP.y, w: MP.s, h: MP.s, rounding: false, altText: "Mappa di Ciudad de la Costa con le due sedi MIRAE: Barra de Carrasco (Tacuarí 1084) e la zona di Shangrilá" });
+  s.addShape(pres.shapes.RECTANGLE, { x: MP.x, y: MP.y, w: MP.s, h: MP.s, fill: { type: "none" }, line: { color: "3D6A5C", width: 1 } });
+  const lab = (t, fx, fy, dx, dy, w) => {
+    const x = MP.x + fx * MP.s + dx, y = MP.y + fy * MP.s + dy;
+    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y, w, h: 0.36, rectRadius: 0.06, fill: { color: NIGHT }, line: { type: "none" } });
+    T(s, t, { x, y, w, h: 0.36, fontSize: 12, bold: true, color: GOLD2, align: "center", valign: "middle" });
+  };
+  lab("MIRAE · Shangrilá", mj.shangrila[0], mj.shangrila[1], -1.3, mj.shangrila[2] * MP.s + 0.08, 2.0);
+  lab("MIRAE · Barra de Carrasco", mj.bdc[0], mj.bdc[1], 0.25, -0.62, 2.45);
+  T(s, "Mappa: © OpenStreetMap contributors (ODbL)", { x: MP.x, y: 6.4, w: MP.s, h: 0.28, fontSize: 10, color: GREY, align: "right" });
   foot(s, "La mia esperienza", true);
   s.addNotes(N.mirae);
 
@@ -406,14 +439,21 @@ const TIGER_FILES = ["01_blanco", "02_naranja", "03_amarillo", "04_camuflado", "
   // ===== 18 GALLERIA =====
   s = pres.addSlide({ masterName: "DARK", sectionTitle: "La mia esperienza" });
   head(s, "03 · In azione", "Io in classe");
-  ph(s, "[VIDEO: io che conduco una lezione, massimo 20 secondi]\nInserisci › Video", M, 1.95, 6.9, 3.88);
+  const vid = findFoto("video_lezione", ["mp4", "m4v", "mov"]);
+  if (vid) {
+    const cov = findFoto("video_lezione_copertina");
+    const cover = cov ? "image/jpeg;base64," + (await sharp(cov).rotate().resize(1520, 855, { fit: "cover" }).jpeg({ quality: 85 }).toBuffer()).toString("base64") : undefined;
+    s.addMedia(Object.assign({ type: "video", path: vid, x: M, y: 1.95, w: 6.9, h: 3.88 }, cover ? { cover } : {}));
+    used.push(path.basename(vid));
+  } else ph(s, "[VIDEO: io che conduco una lezione, massimo 20 secondi]\nInserisci › Video", M, 1.95, 6.9, 3.88);
   T(s, "[Didascalia del video: classe, data, cosa si vede]", { x: M, y: 5.95, w: 6.9, h: 0.4, fontSize: 14, color: MD });
   const pxs = 7.85, pw = (W - M - pxs - 0.25) / 2;
-  [["[FOTO: classe dei Tigers o dei bambini]", "Tigers e bambini"], ["[FOTO: classe di adolescenti o adulti]", "Adolescenti e adulti"], ["[FOTO: io mentre faccio da giudice]", "Da giudice"], ["[FOTO: esame di cintura o torneo]", "Esami e tornei"]].forEach(([p, c], i) => {
-    const x = pxs + (i % 2) * (pw + 0.25), y = 1.95 + Math.floor(i / 2) * 2.2;
-    ph(s, p, x, y, pw, 1.65);
+  const gal = [["[FOTO: classe dei Tigers o dei bambini]", "Tigers e bambini"], ["[FOTO: classe di adolescenti o adulti]", "Adolescenti e adulti"], ["[FOTO: io mentre faccio da giudice]", "Da giudice"], ["[FOTO: esame di cintura o torneo]", "Esami e tornei"]];
+  for (let i = 0; i < 4; i++) {
+    const [p, c] = gal[i], x = pxs + (i % 2) * (pw + 0.25), y = 1.95 + Math.floor(i / 2) * 2.2;
+    await slot(s, "galleria_" + (i + 1), p, x, y, pw, 1.65);
     T(s, c, { x, y: y + 1.72, w: pw, h: 0.35, fontSize: 14, color: MD });
-  });
+  }
   foot(s, "La mia esperienza", true);
   s.addNotes(N.galleria);
 
@@ -495,7 +535,7 @@ const TIGER_FILES = ["01_blanco", "02_naranja", "03_amarillo", "04_camuflado", "
     ["Cinture e cinture Tigers", "Ritagli di Luciano Moreno, in alta risoluzione"],
     ["Colletti e galloni", "Illustrazioni vettoriali originali"],
     ["Icone", "Font Awesome (react-icons), licenza CC BY 4.0"],
-    ["Foto e video", "Archivio personale di Luciano Moreno"],
+    ["Mappa e foto", "© OpenStreetMap contributors (ODbL) · archivio di Luciano Moreno"],
   ];
   for (const [i, [ttl, Ic, items]] of [["FONTI", fa.FaBook, fonti], ["CREDITI DELLE IMMAGINI", fa.FaImage, crediti]].entries()) {
     const x = M + i * (colW + 0.4);
@@ -523,5 +563,5 @@ const TIGER_FILES = ["01_blanco", "02_naranja", "03_amarillo", "04_camuflado", "
   const clean = new JSZip(); // solo file, nessuna voce “cartella” (danno problemi con OneDrive/SharePoint)
   for (const [n, e] of Object.entries(zip.files)) if (!e.dir) clean.file(n, await e.async("nodebuffer"), { createFolders: false });
   fs.writeFileSync(OUT, await clean.generateAsync({ type: "nodebuffer", compression: "DEFLATE" }));
-  console.log("done");
+  console.log("done · foto usate:", used.length ? used.join(", ") : "nessuna (riquadri da completare)");
 })().catch(e => { console.error(e); process.exit(1); });

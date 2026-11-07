@@ -13,6 +13,7 @@
 | `cinturones_hd/tigers/animale_*.png` (9) | ≈790 × 220 | Cinturón Tigers + parche del animal | Ampliado ×6 (Lanczos + nitidez) desde `cinturones/tigers/animal_y_linea_lisa/` | 11 |
 | `cinturones_hd/tigers/0*.png` (9) | ≈1155 × 180 | Cinturón Tigers completo | Ampliado ×5 desde `cinturones/tigers/completos/` | (de reserva) |
 | Collares de dobok (4) y galones de juez (3) | 1200 / 1000 px | Ilustraciones vectoriales (`src/art.js`) | Propias | 4, 5 |
+| `mappa/mappa_sedi.png` (+ `_originale`, `.json`) | 1320 × 1320 | Mapa de Ciudad de la Costa con pin en Barra de Carrasco y zona de Shangrilá | OpenStreetMap, estilizado (`src/tools/mappa.py`) | 15 |
 | Iconos | 256 px | Font Awesome vía react-icons | CC BY 4.0 | varias |
 
-Faltantes (recuadro dorado discontinuo en el deck): foto de portada, foto con cinturón negro/medalla, logo MIRAE, 2 fachadas, foto de Tigers, foto en competencia, video de clase y 4 fotos de galería.
+Faltantes (recuadro dorado discontinuo en el deck): foto de portada, foto con cinturón negro/medalla, logo MIRAE, 2 fachadas, foto de Tigers, foto en competencia, video de clase y 4 fotos de galería. Se completan solos al dejarlos en `fotos/` (ver `fotos/LEEME.md`).
