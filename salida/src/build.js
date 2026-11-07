@@ -512,5 +512,16 @@ const TIGER_FILES = ["01_blanco", "02_naranja", "03_amarillo", "04_camuflado", "
 
   await pres.writeFile({ fileName: OUT });
   await applyTheme(OUT, THEME);
+  // Transizione “dissolvenza” discreta su ogni diapositiva (pptxgenjs non la espone)
+  const JSZip = require("jszip");
+  const zip = await JSZip.loadAsync(fs.readFileSync(OUT));
+  for (const f of Object.keys(zip.files).filter(f => /^ppt\/slides\/slide\d+\.xml$/.test(f))) {
+    let x = await zip.file(f).async("string");
+    if (!x.includes("<p:transition")) x = x.replace("</p:clrMapOvr>", '</p:clrMapOvr><p:transition spd="med"><p:fade/></p:transition>');
+    zip.file(f, x);
+  }
+  const clean = new JSZip(); // solo file, nessuna voce “cartella” (danno problemi con OneDrive/SharePoint)
+  for (const [n, e] of Object.entries(zip.files)) if (!e.dir) clean.file(n, await e.async("nodebuffer"), { createFolders: false });
+  fs.writeFileSync(OUT, await clean.generateAsync({ type: "nodebuffer", compression: "DEFLATE" }));
   console.log("done");
 })().catch(e => { console.error(e); process.exit(1); });
