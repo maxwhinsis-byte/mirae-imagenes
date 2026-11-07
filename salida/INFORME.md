@@ -7,7 +7,8 @@
 - **Web (atamartialarts.com):** la **estrella Songahm real** (logo oficial ATA). Solo estaba a 497 px, así que la **vectoricé** (SVG + PNG 2400 px) y hice 3 versiones: color, color con borde dorado para fondos oscuros y dorada para marca de agua. Reemplaza todas las estrellas dibujadas.
 - **Dibujo propio (art.js):** collares de instructor y galones de juez (no hay fotos accesibles). Ahora a doble resolución.
 - **Mapa de las sedes (OpenStreetMap):** la diapositiva 15 ahora tiene un mapa real de Ciudad de la Costa con las dos sedes, con los colores del deck. **Barra de Carrasco = Tacuarí 1084 esq. Rivera**, confirmado por Lucho; en el localizador oficial de ATA figura como "Winners BDC" y la dirección coincide con OpenStreetMap. **Shangrilá** se marca como *zona* (círculo), porque no tengo la dirección exacta.
-- **No encontrado:** el logo de MIRAE (lo sube Lucho) y fotos de las fachadas. MIRAE no figura con ese nombre en ATA Uruguay ni en el localizador de ATA, y Street View necesita servicios de Google que no tengo en este entorno.
+- **Logo de MIRAE:** lo pasó Lucho (captura sobre fondo gris). Lo recorté en círculo y lo **vectoricé** (SVG + PNG 2000 px transparente): `assets/logo_mirae/`. Está en la portada y en la diapositiva 15.
+- **No encontrado:** fotos de las fachadas. MIRAE no figura con ese nombre en ATA Uruguay ni en el localizador de ATA, y Street View necesita servicios de Google que no tengo en este entorno.
 
 ## Datos verificados / corregidos
 - **Chung Hae (5º Dan) = 95 movimientos** (no 85). Agregué los movimientos de los 9 Dan: 81, 82, 83, 84, 95, 96, 97, 98, 99 (Wikipedia; los 3 últimos sin cita allí).
@@ -25,7 +26,7 @@ Lucho pone sus fotos y su video en **`fotos/`** (raíz del repo) con los nombres
 2. Foto con cinturón negro / medalla / Selección ATA Uruguay (diap. 3).
 3. Foto de la clase de Tigers (diap. 11) y **confirmar que MIRAE usa el programa Tigers** con estos animales.
 4. Foto en competencia (diap. 13).
-5. **Logo de MIRAE** (PNG transparente → `fotos/logo_mirae.png`), **fotos de las 2 sedes** y **dirección exacta de Shangrilá** si se quiere un pin en lugar de la zona (diap. 15).
+5. ~~Logo de MIRAE~~ (listo). **Fotos de las 2 sedes** y **dirección exacta de Shangrilá** si se quiere un pin en lugar de la zona (diap. 15).
 6. **Video de una clase, ≤20 s** (diap. 18: Insertar › Video) + pie de video + 4 fotos de galería.
 7. **Anécdota personal** (diap. 21) y frase final en las notas.
 

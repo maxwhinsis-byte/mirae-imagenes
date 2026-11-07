@@ -110,8 +110,10 @@ const TIGER_FILES = ["01_blanco", "02_naranja", "03_amarillo", "04_camuflado", "
   T(s, "ESAME DI STATO · PERCORSO SCUOLA-LAVORO (EX PCTO)", { x: M, y: 0.7, w: 6.4, h: 0.35, fontSize: 13, bold: true, color: GOLD, charSpacing: 3 });
   T(s, [{ text: "TAEKWONDO", options: { color: WHITE, breakLine: true } }, { text: "SONGAHM", options: { color: GOLD } }], { x: M, y: 1.55, w: 6.4, h: 2.5, fontFace: HEAD, fontSize: 62, bold: true, valign: "middle", lineSpacingMultiple: 0.95 });
   T(s, "Dall’allievo all’istruttore: la mia esperienza di lavoro in accademia", { x: M, y: 4.15, w: 5.6, h: 1.0, fontSize: 22, color: MD });
-  T(s, "LUCIANO MORENO", { x: M, y: 5.3, w: 6.2, h: 0.42, fontFace: HEAD, fontSize: 20, bold: true, color: WHITE, charSpacing: 2 });
-  T(s, "Scuola Italiana di Montevideo · MIRAE Artes Marciales", { x: M, y: 5.72, w: 6.2, h: 0.6, fontSize: 14, color: MD });
+  const logoCover = findFoto("logo_mirae", ["png"]), lx = logoCover ? M + 1.1 : M;
+  if (logoCover) await slot(s, "logo_mirae", "", M, 5.25, 0.9, 0.9, true, "contain", "Logo di MIRAE Artes Marciales");
+  T(s, "LUCIANO MORENO", { x: lx, y: 5.3, w: 6.2 - (lx - M), h: 0.42, fontFace: HEAD, fontSize: 20, bold: true, color: WHITE, charSpacing: 2 });
+  T(s, "Scuola Italiana di Montevideo · MIRAE Artes Marciales", { x: lx, y: 5.72, w: 6.2 - (lx - M), h: 0.6, fontSize: 14, color: MD });
   await slot(s, "portada", "[FOTO GRANDE: io in dobok mentre insegno, calcio alto o posizione di guardia]", 7.3, 0, 6.033, 7.5);
   s.addNotes(N.cover);
 

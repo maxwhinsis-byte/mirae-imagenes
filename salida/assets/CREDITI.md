@@ -5,6 +5,7 @@
 | Estrella Songahm (logo) | https://atamartialarts.com/media/oyvjd3vg/songahm-star-logo.png | American Taekwondo Association, Inc. | Marca registrada de ATA; uso educativo en examen escolar, citada en la diapositiva 24 | 2026-11-07 |
 | Recortes de cinturones y Tigers | repo `maxwhinsis-byte/mirae-imagenes` (`cinturones/`) | Luciano Moreno (recortes); diseño de cinturones/parches Tigers: ATA | Uso educativo | — (repo) |
 | Collares y galones | `src/art.js` | Ilustraciones originales | Libre | — |
+| Logo MIRAE | Imagen enviada por Luciano Moreno (`logo_mirae/originale_whatsapp.jpg`) | MIRAE Artes Marciales | Uso con permiso de la academia; vectorizado | 2026-11-07 |
 | Mapa de las sedes | https://tile.openstreetmap.org (zoom 15) · geocodificación nominatim.openstreetmap.org | © OpenStreetMap contributors | ODbL; atribución en la diapositiva 15 | 2026-11-07 |
 | Iconos | https://fontawesome.com (paquete react-icons) | Fonticons, Inc. | CC BY 4.0 | — |
 
