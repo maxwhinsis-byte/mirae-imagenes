@@ -6,7 +6,7 @@
 - **Repo de Lucho** (`cinturones/`): todos los cinturones de color, "raccomandato/deciso", rojo-negro, negros con Dan y los Tigers. Eran recortes de 115 px (muy chicos). Los **cinturones lisos y con franja se redibujaron** a 1200 px con el mismo diseño y los colores medidos en sus recortes; la textura del camuflado sale del recorte original limpiada; los **Tigers se ampliaron** (×5–×6) con nitidez porque los dibujos de animales no se pueden redibujar fielmente.
 - **Web (atamartialarts.com):** la **estrella Songahm real** (logo oficial ATA). Solo estaba a 497 px, así que la **vectoricé** (SVG + PNG 2400 px) y hice 3 versiones: color, color con borde dorado para fondos oscuros y dorada para marca de agua. Reemplaza todas las estrellas dibujadas.
 - **Dibujo propio (art.js):** collares de instructor y galones de juez (no hay fotos accesibles). Ahora a doble resolución.
-- **Mapa de las sedes (OpenStreetMap):** la diapositiva 15 ahora tiene un mapa real de Ciudad de la Costa con las dos sedes, con los colores del deck. **Barra de Carrasco = Tacuarí 1084 esq. Rivera**, confirmado por Lucho; en el localizador oficial de ATA figura como "Winners BDC" y la dirección coincide con OpenStreetMap. **Shangrilá** se marca como *zona* (círculo), porque no tengo la dirección exacta.
+- **Mapa de las sedes (OpenStreetMap):** la diapositiva 15 ahora tiene un mapa real de Ciudad de la Costa con las dos sedes, con los colores del deck. **Barra de Carrasco = Tacuarí 1084 esq. Rivera**, confirmado por Lucho; en el localizador oficial de ATA figura como "Winners BDC" y la dirección coincide con OpenStreetMap. **Shangrilá = Av. Calcagno, manzana 12, solar 6** (ficha de Google Maps «ATA Mirae artes marciales shangrila», enviada por Lucho; coordenadas −34.84828, −56.00325). Como no hay fotos de las fachadas, cada sede muestra un **primer plano del mapa con la ubicación exacta**; si después aparece una foto real (`fotos/sede_*.jpg`), la foto lo reemplaza.
 - **Logo de MIRAE:** lo pasó Lucho (captura sobre fondo gris). Lo recorté en círculo y lo **vectoricé** (SVG + PNG 2000 px transparente): `assets/logo_mirae/`. Está en la portada y en la diapositiva 15.
 - **No encontrado:** fotos de las fachadas. MIRAE no figura con ese nombre en ATA Uruguay ni en el localizador de ATA, y Street View necesita servicios de Google que no tengo en este entorno.
 
@@ -26,7 +26,7 @@ Lucho pone sus fotos y su video en **`fotos/`** (raíz del repo) con los nombres
 2. Foto con cinturón negro / medalla / Selección ATA Uruguay (diap. 3).
 3. Foto de la clase de Tigers (diap. 11) y **confirmar que MIRAE usa el programa Tigers** con estos animales.
 4. Foto en competencia (diap. 13).
-5. ~~Logo de MIRAE~~ (listo). **Fotos de las 2 sedes** y **dirección exacta de Shangrilá** si se quiere un pin en lugar de la zona (diap. 15).
+5. ~~Logo de MIRAE~~ y ~~ubicación de las sedes~~ (listo). Opcional: fotos reales de las fachadas (diap. 15).
 6. **Video de una clase, ≤20 s** (diap. 18: Insertar › Video) + pie de video + 4 fotos de galería.
 7. **Anécdota personal** (diap. 21) y frase final en las notas.
 

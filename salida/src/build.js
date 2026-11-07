@@ -29,7 +29,7 @@ async function icon(Comp, color) {
 async function file(rel) {
   const buf = fs.readFileSync(path.join(ASSETS, rel));
   const m = await sharp(buf).metadata();
-  return { data: "image/png;base64," + buf.toString("base64"), ar: m.width / m.height };
+  return { data: `image/${m.format === "jpeg" ? "jpeg" : "png"};base64,` + buf.toString("base64"), ar: m.width / m.height };
 }
 const BELT_KEYS = ["bianca", "arancione", "gialla", "mimetica", "verde", "viola", "blu", "marrone", "rossa"];
 const TIGER_FILES = ["01_blanco", "02_naranja", "03_amarillo", "04_camuflado", "05_verde", "06_violeta", "07_azul", "08_marron", "09_rojo"];
@@ -377,10 +377,14 @@ const TIGER_FILES = ["01_blanco", "02_naranja", "03_amarillo", "04_camuflado", "
   T(s, [{ text: "Accademia di arti marziali ATA con " }, { text: "due sedi", options: { bold: true } }, { text: " a Ciudad de la Costa, Canelones." }], { x: M + 1.55, y: 1.95, w: 5.6, h: 0.8, fontSize: 18, color: WHITE });
   T(s, "Mi alleno qui dal 2019. Oggi ci lavoro come istruttore retribuito, con classi di bambini, adolescenti e adulti.", { x: M + 1.55, y: 2.75, w: 5.6, h: 0.6, fontSize: 15, color: MD });
   const fw = (7.2 - 0.3) / 2;
-  const sedi = [["sede_shangrila", "[FOTO: sede di Shangrilá]", "SHANGRILÁ", "Ciudad de la Costa"], ["sede_barra_de_carrasco", "[FOTO: sede di Barra de Carrasco]", "BARRA DE CARRASCO", "Tacuarí 1084 esq. Rivera"]];
+  const sedi = [["sede_shangrila", "shangrila", "SHANGRILÁ", "Av. Calcagno, manzana 12, solar 6"], ["sede_barra_de_carrasco", "bdc", "BARRA DE CARRASCO", "Tacuarí 1084 esq. Rivera"]];
   for (let i = 0; i < 2; i++) {
-    const [k, p, c, a] = sedi[i], x = M + i * (fw + 0.3);
-    await slot(s, k, p, x, 3.65, fw, 2.2);
+    const [k, mk, c, a] = sedi[i], x = M + i * (fw + 0.3);
+    if (findFoto(k)) await slot(s, k, "", x, 3.65, fw, 2.2, true, "cover", "Sede di " + c);
+    else { // nessuna foto della facciata: primo piano della mappa con la posizione esatta
+      fit(s, await file(`mappa/primo_piano_${mk}.jpg`), x, 3.65, fw, 2.2, `Mappa: posizione della sede MIRAE di ${c}, ${a}`);
+      s.addShape(pres.shapes.RECTANGLE, { x, y: 3.65, w: fw, h: 2.2, fill: { type: "none" }, line: { color: "3D6A5C", width: 1 } });
+    }
     T(s, c, { x, y: 5.95, w: fw, h: 0.32, fontFace: HEAD, fontSize: 16, bold: true, color: GOLD2 });
     T(s, a, { x, y: 6.27, w: fw, h: 0.3, fontSize: 13, color: MD });
   }

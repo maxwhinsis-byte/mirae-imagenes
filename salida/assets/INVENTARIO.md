@@ -14,7 +14,8 @@
 | `cinturones_hd/tigers/0*.png` (9) | ≈1155 × 180 | Cinturón Tigers completo | Ampliado ×5 desde `cinturones/tigers/completos/` | (de reserva) |
 | Collares de dobok (4) y galones de juez (3) | 1200 / 1000 px | Ilustraciones vectoriales (`src/art.js`) | Propias | 4, 5 |
 | `logo_mirae/logo_mirae.svg`, `logo_mirae_2000.png` (= `fotos/logo_mirae.png`) | 2000 px, transparente | Logo MIRAE (미래) vectorizado | Imagen de Lucho, recortada y vectorizada (`src/tools/logo_mirae.py`) | 1, 15 |
-| `mappa/mappa_sedi.png` (+ `_originale`, `.json`) | 1320 × 1320 | Mapa de Ciudad de la Costa con pin en Barra de Carrasco y zona de Shangrilá | OpenStreetMap, estilizado (`src/tools/mappa.py`) | 15 |
+| `mappa/mappa_sedi.png` (+ `_originale`, `.json`) | 1320 × 1320 | Mapa de Ciudad de la Costa con los pines de las dos sedes | OpenStreetMap, estilizado (`src/tools/mappa.py`) | 15 |
+| `mappa/primo_piano_shangrila.jpg`, `primo_piano_bdc.jpg` | 1520 × 970 | Primer plano de calle (zoom 18) con la ubicación de cada sede | OpenStreetMap, estilizado | 15 |
 | Iconos | 256 px | Font Awesome vía react-icons | CC BY 4.0 | varias |
 
-Faltantes (recuadro dorado discontinuo en el deck): foto de portada, foto con cinturón negro/medalla, 2 fachadas, foto de Tigers, foto en competencia, video de clase y 4 fotos de galería. Se completan solos al dejarlos en `fotos/` (ver `fotos/LEEME.md`).
+Faltantes (recuadro dorado discontinuo en el deck): foto de portada, foto con cinturón negro/medalla, foto de Tigers, foto en competencia, video de clase y 4 fotos de galería. Se completan solos al dejarlos en `fotos/` (ver `fotos/LEEME.md`).
